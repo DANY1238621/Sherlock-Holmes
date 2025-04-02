@@ -1,31 +1,60 @@
-let allNovels = [];
-async function fetchAndDisplayNovels() {
+
+  let allNovels = [];
+  
+  // Initialize dark mode from localStorage or system preference
+  function initDarkMode() {
+    const savedMode = localStorage.getItem('darkMode');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedMode === 'true' || savedMode === null && systemPrefersDark) {
+      document.body.classList.add('darkmode');
+    }
+  }
+  
+  // Toggle dark mode
+  function toggleDarkMode() {
+    const isDark = document.body.classList.toggle('darkmode');
+    localStorage.setItem('darkMode', isDark);
+  }
+  
+  // Fetch and display novels
+  async function fetchAndDisplayNovels() {
     try {
         const response = await fetch('https://raw.githubusercontent.com/DANY1238621/Sherlock-Holmes/refs/heads/Sherlock-Holmes/narrators.json');
         allNovels = await response.json();
         displayNovels(allNovels);
         addSearchInput();
     } catch (error) {
-        console.error('حدث خطأ أثناء جلب البيانات:', error);
+        console.error('Error fetching data:', error);
         document.getElementById('narrators-list').innerHTML =
-            '<p>حدث خطأ أثناء تحميل البيانات. يرجى المحاولة لاحقاً.</p>';
-}} function addSearchInput() {
+            '<p>Error loading data. Please try again later.</p>';
+    }
+  }
+  
+  function addSearchInput() {
     document.getElementById('search').addEventListener('input', filterNovels);
     document.getElementById('btn').addEventListener('click', filterNovels);
-}
-function filterNovels() {
+  }
+  
+  function filterNovels(e) {
+    e.preventDefault();
     const searchTerm = document.getElementById('search').value.toLowerCase().trim();
     if (!searchTerm) {
-        displayNovels(allNovels); // إعادة عرض الكل إذا كان البحث فارغاً
+        displayNovels(allNovels);
         return;
-    } const filtered = allNovels.filter(novel =>
+    }
+    const filtered = allNovels.filter(novel =>
         novel.name.toLowerCase().includes(searchTerm) ||
         novel.author.toLowerCase().includes(searchTerm)
-    ); displayNovels(filtered.length ? filtered : []);
+    );
+    displayNovels(filtered.length ? filtered : []);
     if (!filtered.length) {
         const container = document.getElementById('narrators-list');
-        container.innerHTML = '<p class="no-results">لا توجد نتائج تطابق بحثك</p>';
-}} function displayNovels(novels) {
+        container.innerHTML = '<p class="no-results">No results found</p>';
+    }
+  }
+  
+  function displayNovels(novels) {
     const container = document.getElementById('narrators-list');
     container.innerHTML = '';
     novels.forEach(novel => {
@@ -36,15 +65,12 @@ function filterNovels() {
             <a href="${novel.downloadLink}"><img src="${novel.image}" alt="${novel.name}"/></a>
         `;
         container.appendChild(card);
-        alert("hay")
-})} window.onload = fetchAndDisplayNovels;
-function Darkmode(mode) {
-    if (mode) {
-        document.body.classList.add("darkmode")
-        document.getElementById("moon").style.display = "none"
-        document.getElementById("sun").style.display = "unset"
-    } else {
-        document.body.classList.remove("darkmode")
-        document.getElementById("moon").style.display = "unset"
-        document.getElementById("sun").style.display = "none"
-}} Darkmode(true)
+    });
+  }
+  
+  // Initialize everything when page loads
+  window.onload = function() {
+    initDarkMode();
+    fetchAndDisplayNovels();
+  };
+  toggleDarkMode();

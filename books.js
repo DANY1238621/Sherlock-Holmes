@@ -1,0 +1,228 @@
+document.addEventListener('DOMContentLoaded', async () => {
+    // ========== DYNAMIC STYLES ==========
+    const style = document.createElement('style');
+    style.textContent = `
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            transition: 0.3s;
+        }
+        
+        .header {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .search-container {
+            position: relative;
+            flex: 1 1 300px;
+            min-width: 250px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6F4E37;
+        }
+        
+        .loading {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            padding: 20px;
+        }
+        
+        @media (max-width: 480px) {
+            .search-container {
+                flex: 1 1 100%;
+                order: 3;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // ========== THEME MANAGEMENT ==========
+    const setTheme = (isDark) => {
+        const colors = isDark ? {
+            bg: '#000',
+            text: '#fff',
+            primary: '#aaa',
+            secondary: '#333'
+        } : {
+            bg: '#fff',
+            text: '#000',
+            primary: '#555',
+            secondary: '#ccc'
+        };
+
+        document.body.style.backgroundColor = colors.bg;
+        document.body.style.color = colors.text;
+        document.documentElement.style.setProperty('--primary', colors.primary);
+        document.documentElement.style.setProperty('--secondary', colors.secondary);
+    };
+
+    // ========== ELEMENT CREATION HELPER ==========
+    const createElement = (tag, props) => Object.assign(document.createElement(tag), props);
+
+    // ========== HEADER SECTION ==========
+    const header = createElement('header', {className: 'header'});
+    const title = createElement('h1', {
+        innerHTML: '<i class="fa-solid fa-mug-hot"></i> Coffee Library',
+        style: 'color: var(--primary); margin:0; font-size: clamp(1.2rem, 4vw, 1.8rem); flex-shrink: 0;'
+    });
+
+    const searchContainer = createElement('div', {className: 'search-container'});
+    const searchIcon = createElement('i', {className: 'fas fa-search search-icon'});
+    const search = createElement('input', {
+        type: 'search',
+        placeholder: 'Search novels or authors...',
+        style: 'width: 100%; padding: 8px 35px; border-radius: 20px; border: 1px solid var(--primary); font-size: 14px; background: var(--secondary)'
+    });
+    
+    const themeBtn = createElement('button', {
+        innerHTML: '<i class="fa-solid fa-sun"></i>',
+        style: 'background: var(--primary); color: white; border: none; padding: 10px; border-radius: 50%; cursor: pointer; flex-shrink: 0;'
+    });
+
+    searchContainer.append(searchIcon, search);
+    header.append(title, themeBtn, searchContainer);
+
+    // ========== MAIN CONTENT SECTION ==========
+    const main = createElement('main', {
+        style: 'display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; padding: 15px;'
+    });
+
+    // ========== FOOTER SECTION ==========
+    const footer = createElement('footer', {
+        style: 'text-align: center; padding: 15px; background: var(--secondary); color: var(--primary); font-size: 0.9rem; display: flex; flex-direction: column; gap: 10px;'
+    });
+
+    // Visitor Counter
+    const visitorCounter = createElement('div', {
+        innerHTML: 'Visitors: ' + (localStorage.getItem('visitors') || '0'),
+        style: 'font-weight: bold; color: var(--primary);'
+    });
+    
+    const updateCounter = () => {
+        const count = parseInt(localStorage.getItem('visitors') || 0) + 1;
+        localStorage.setItem('visitors', count);
+        visitorCounter.innerHTML = `<hr><i class="fa-solid fa-eye"></i> Visitors: ${count + 351257}`;
+    };
+
+    // Social Media Links
+    const socialLinks = [
+        { name: 'Facebook', url: '#', icon: 'fa-brands fa-facebook' },
+        { name: 'Instagram', url: '#', icon: 'fa-brands fa-instagram' },
+        { name: 'Threads', url: '#', icon: 'fa-brands fa-threads' },
+        { name: 'Snapchat', url: '#', icon: 'fa-brands fa-snapchat' },
+        { name: 'Pinterest', url: '#', icon: 'fa-brands fa-pinterest' },
+        { name: 'GitHub', url: '#', icon: 'fa-brands fa-github' },
+        { name: 'Telegram', url: '#', icon: 'fa-brands fa-telegram' },
+        { name: 'YouTube', url: '#', icon: 'fa-brands fa-youtube' }
+    ];
+
+    const socialContainer = createElement('div', {
+        style: 'display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;'
+    });
+
+    socialLinks.forEach(link => {
+        const anchor = createElement('a', {
+            href: link.url,
+            target: '_blank',
+            innerHTML: `<i class="${link.icon}"></i>`,
+            style: 'color: var(--primary); text-decoration: none; font-size: 1.5rem; transition: 0.3s;'
+        });
+        socialContainer.appendChild(anchor);
+    });
+
+    const footerText = createElement('div', {
+        innerHTML: '<hr> © 2025 Coffee Library. All rights reserved'
+    });
+
+    footer.append(visitorCounter, socialContainer, footerText);
+    document.body.append(header, main, footer);
+
+    // ========== DATA FETCHING ==========
+    let novelsData = { authors: [] };
+    main.innerHTML = '<div class="loading">Loading books...</div>';
+
+    try {
+        const response = await fetch('books.json');
+        novelsData = await response.json();
+        main.innerHTML = '';
+    } catch (error) {
+        console.error('Data loading failed:', error);
+        main.innerHTML = '<div class="loading" style="color: #ff4444">Error loading books. Please try again later.</div>';
+    }
+
+    // ========== NOVEL CARD COMPONENT ==========
+    const createNovelCard = (author, novel) => {
+        const card = createElement('div', {
+            style: 'background: var(--secondary); padding: 15px; border-radius: 10px; text-align: center;'
+        });
+        
+        card.innerHTML = `
+            <img src="${novel.cover}" alt="${novel.title}" loading="lazy"
+                 style="width: 100%; height: 380px; object-fit: cover; border-radius: 5px;">
+            <p style="margin: 10px 0; font-size: 1.1rem;text-wrap:nowrap">${novel.title}</p>
+            <p style="margin: 5px 0; color: var(--primary); font-size: 0.9rem;text-wrap:nowrap">${author.name}</p>
+            <div style="color: gold; margin: 10px 0; font-size: 0.9rem;">
+                ${'★'.repeat(novel.rating)}${'☆'.repeat(5 - novel.rating)}
+            </div>
+            <button onclick="window.open('${novel.download}')" 
+                    style="background: var(--primary); color: white; border: none; 
+                           padding: 8px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">
+                <i class="fa-solid fa-download"></i> Download
+            </button>
+        `;
+        return card;
+    };
+
+    // ========== DISPLAY FUNCTIONALITY ==========
+    const displayNovels = (data) => {
+        main.innerHTML = '';
+        data.authors.sort(() => Math.random() - 0.5).forEach(author => {
+            author.novels.sort(() => Math.random() - 0.5).forEach(novel => {
+                main.appendChild(createNovelCard(author, novel));
+            });
+        });
+    };
+
+    // ========== SEARCH FUNCTIONALITY ==========
+    search.addEventListener('input', (e) => {
+        const filtered = {
+            authors: novelsData.authors.map(author => ({
+                ...author,
+                novels: author.novels.filter(novel => 
+                    novel.title.toLowerCase().includes(e.target.value.toLowerCase()) || 
+                    author.name.toLowerCase().includes(e.target.value.toLowerCase())
+                )
+            })).filter(author => author.novels.length > 0)
+        };
+        displayNovels(filtered);
+    });
+
+    // ========== THEME TOGGLE ==========
+    let isDark = false;
+    themeBtn.addEventListener('click', () => {
+        isDark = !isDark;
+        setTheme(isDark);
+        themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+    });
+
+    // ========== INITIAL SETUP ==========
+    setTheme(true);
+    updateCounter();
+    displayNovels(novelsData);
+
+    // ========== RESPONSIVE ADJUSTMENTS ==========
+    window.addEventListener('resize', () => {
+        main.style.gridTemplateColumns = `repeat(auto-fill, minmax(${window.innerWidth < 480 ? '260px' : '280px'}, 1fr))`;
+    });
+});

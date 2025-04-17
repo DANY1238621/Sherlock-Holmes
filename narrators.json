@@ -1,8 +1,124 @@
-[
+{
+  "authors": [{
+    "name": "إليف شافاق",
+    "novels": [{
+      "title": "قواعد العشق الأربعين",
+      "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1351014892i/16104434.jpg",
+      "download": "https://example.com/download/1",
+      "rating": 4.5
+    },
+      {
+        "title": "لقيطة إسطنبول",
+        "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1477325923i/15980754.jpg",
+        "download": "https://example.com/download/2",
+        "rating": 0
+      },
+      {
+        "title": "الفتى المتيم والمعلم",
+        "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1430813452i/25483693.jpg",
+        "download": "https://example.com/download/3",
+        "rating": 0
+      },
+      {
+        "title": "قصر الحلوى",
+        "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1458639329i/29587512.jpg",
+        "download": "https://example.com/download/4",
+        "rating": 0
+      },
+      {
+        "title": "قصر القمل",
+        "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1394113207i/21236462.jpg",
+        "download": "https://example.com/download/5",
+        "rating": 0
+      },
+      {
+        "title": "حليب أسود",
+        "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1445772713i/27272010.jpg",
+        "download": "https://example.com/download/6",
+        "rating": 0
+      },
+      {
+        "title": "بنات حواء الثلاث",
+        "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1497277846i/35422368.jpg",
+        "download": "https://example.com/download/7",
+        "rating": 0
+      },
+      {
+        "title": "البنت التي لاتحب اسمها",
+        "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1554034345i/44667823.jpg ",
+        "download": "https://example.com/download/8",
+        "rating": 0
+      },
+      {
+        "title": "شرف 1",
+        "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1384165914i/18779138.jpg",
+        "download": "https://example.com/download/8",
+        "rating": 0
+      },
+      {
+        "title": "شرف 2",
+        "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1384165914i/18779138.jpg",
+        "download": "https://example.com/download/8",
+        "rating": 0
+      },
+      {
+        "title": "جزيرة الأشجار المفقودة",
+        "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1664560083i/62831911.jpg",
+        "download": "https://example.com/download/8",
+        "rating": 0
+      }]
+  },
     {
-        "name": "فن اللامبالاة" ,
-        "author": "مارك مانسون", 
-        "image": "https://i.pinimg.com/736x/73/03/0e/73030ee9caa35d0456360c75e11759c2.jpg",
-        "downloadLink": "https://drive.google.com/file/d/1QHDuRmixNJuAO464xFPAtsAAOGPv0VoW/view?usp=drivesdk"
+      "name": "عمرو عبد الحميد",
+      "novels": [{
+        "title": "أرض زيكولا 1",
+        "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1441287700i/9753375.jpg",
+        "download": "https://example.com/download/8",
+        "rating": 0
+      },
+        {
+          "title": "أرض زيكولا 2",
+          "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1453065317i/28590941.jpg",
+          "download": "j",
+          "rating": 0
+        },
+        {
+          "title": "أرض زيكولا 3",
+          "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1676244182i/84279923.jpg",
+          "download": "https://example.com/download/8",
+          "rating": 0
+        },
+        {
+          "title": "قواعد جارتين 1",
+          "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1515266369i/37842353.jpg",
+          "download": "https://example.com/download/8",
+          "rating": 0
+        },
+        {
+          "title": "قواعد جارتين 2",
+          "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1701457742i/203054862.jpg",
+          "download": "https://example.com/download/8",
+          "rating": 0
+        },
+        {
+          "title": "ثواعد جارتين 3",
+          "cover": "https://m.media-amazon.com/images/I/61lVsYGQKdL._AC_UF1000,1000_QL80_.jpg",
+          "download": "https://example.com/download/8",
+          "rating": 0
+        },
+        {
+          "title": "فتاة الياقة الزرقاء",
+          "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1625013762i/58457010.jpg",
+          "download": "https://example.com/download/8",
+          "rating": 0
+        },
+        {
+          "title": "واحة اليعقوب",
+          "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1736707464i/223532109.jpg",
+          "download": "https://example.com/download/8",
+          "rating": 0
+        }
+      ]
     }
-]
+  ]
+}

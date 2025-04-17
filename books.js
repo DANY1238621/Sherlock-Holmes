@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     main.innerHTML = '<div class="loading">Loading books...</div>';
 
     try {
-        const response = await fetch('books.json');
+        const response = await fetch('narrators.json');
         novelsData = await response.json();
         main.innerHTML = '';
     } catch (error) {

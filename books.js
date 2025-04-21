@@ -117,14 +117,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Social Media Links
     const socialLinks = [
-        { name: 'Facebook', url: '#', icon: 'fa-brands fa-facebook' },
-        { name: 'Instagram', url: '#', icon: 'fa-brands fa-instagram' },
-        { name: 'Threads', url: '#', icon: 'fa-brands fa-threads' },
-        { name: 'Snapchat', url: '#', icon: 'fa-brands fa-snapchat' },
-        { name: 'Pinterest', url: '#', icon: 'fa-brands fa-pinterest' },
-        { name: 'GitHub', url: '#', icon: 'fa-brands fa-github' },
-        { name: 'Telegram', url: '#', icon: 'fa-brands fa-telegram' },
-        { name: 'YouTube', url: '#', icon: 'fa-brands fa-youtube' }
+        { name: 'Facebook', url: 'https://www.facebook.com/danielyousefdy', icon: 'fa-brands fa-facebook' },
+        { name: 'Instagram', url: 'https://www.instagram.com/danielyousefdy', icon: 'fa-brands fa-instagram' },
+        { name: 'Threads', url: 'https://www.threads.net/@danielyousefdy', icon: 'fa-brands fa-threads' },
+        { name: 'Snapchat', url: 'https://www.snapchat.com/add/danielyousefdy', icon: 'fa-brands fa-snapchat' },
+        { name: 'Pinterest', url: 'https://pin.it/7riTQYfpx', icon: 'fa-brands fa-pinterest' },
+        { name: 'GitHub', url: 'https://github.com/danielyousefdy/Sherlock-Holmes/tree/Sherlock-Holmes', icon: 'fa-brands fa-github' },
+        { name: 'Telegram', url: 'https://t.me/danielyousefdy', icon: 'fa-brands fa-telegram' },
+        { name: 'YouTube', url: 'https://youtube.com/@danielyousefdy', icon: 'fa-brands fa-youtube' }
     ];
 
     const socialContainer = createElement('div', {
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     main.innerHTML = '<div class="loading">Loading books...</div>';
 
     try {
-        const response = await fetch('narrators.json');
+        const response = await fetch('books.json');
         novelsData = await response.json();
         main.innerHTML = '';
     } catch (error) {

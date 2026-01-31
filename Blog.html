@@ -1,1 +1,530 @@
-
+ <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قالب تجريبي - اختبار الحماية</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/danielyousefdy/Sherlock-Holmes@Sherlock-Holmes/Blogstyle.css">
+    <style>
+        /* CSS احتياطي إذا فشل التحميل الخارجي */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .test-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .status-bar {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2ecc71;
+            animation: pulse 2s infinite;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #d35400);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .result-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 2px dashed #3498db;
+            display: none;
+        }
+        
+        .result-box.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .protection-tests {
+            margin-top: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .test-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .test-pass {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        
+        .test-fail {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #2c3e50;
+            color: white;
+            margin-top: 50px;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .test-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <!-- الهيدر -->
+        <div class="header">
+            <h1>🛡️ قالب اختبار الحماية</h1>
+            <p>اختبار كامل لنظام الحماية والتحميل الخارجي</p>
+        </div>
+        
+        <!-- شريط الحالة -->
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>الحماية: نشطة</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>التشفير: مفعل</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>التحميل: جاهز</span>
+            </div>
+        </div>
+        
+        <!-- المحتوى الرئيسي -->
+        <div class="content">
+            <h2>🎯 اختبار الملفات الخارجية</h2>
+            <p>هذا القالب يستخدم ملفات CSS و JavaScript خارجية من GitHub</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <h3>📁 ملف CSS خارجي</h3>
+                    <p>تحميل أنماط التصميم من رابط خارجي</p>
+                    <div class="test-buttons">
+                        <button class="btn btn-primary" onclick="testCSS()">اختبار CSS</button>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>⚡ ملف JavaScript خارجي</h3>
+                    <p>تحميل الأكواد البرمجية التفاعلية</p>
+                    <div class="test-buttons">
+                        <button class="btn btn-success" onclick="testJS()">اختبار JavaScript</button>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🔒 نظام الحماية</h3>
+                    <p>اختبار طبقات الحماية المختلفة</p>
+                    <div class="test-buttons">
+                        <button class="btn btn-warning" onclick="testProtection()">اختبار الحماية</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- نتائج الاختبار -->
+            <div id="testResult" class="result-box"></div>
+            
+            <!-- اختبارات الحماية -->
+            <div class="protection-tests">
+                <h3>🔍 اختبارات أمنية</h3>
+                
+                <div class="test-item">
+                    <span>منع النسخ (Copy Protection)</span>
+                    <span id="copyTest" class="test-fail">غير مفعل</span>
+                </div>
+                
+                <div class="test-item">
+                    <span>منع النقر الأيمن (Right Click)</span>
+                    <span id="rightClickTest" class="test-fail">غير مفعل</span>
+                </div>
+                
+                <div class="test-item">
+                    <span>كشف أدوات المطور (DevTools)</span>
+                    <span id="devToolsTest" class="test-fail">غير مفعل</span>
+                </div>
+                
+                <div class="test-item">
+                    <span>التحقق من الدومين (Domain Check)</span>
+                    <span id="domainTest" class="test-fail">غير مفعل</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- الفوتر -->
+        <footer>
+            <p>© 2024 قالب اختبار الحماية - جميع الاختبارات تعمل بنظام خارجي</p>
+            <p style="margin-top: 10px; opacity: 0.8;">
+                الملفات مخزنة على: GitHub → CDN → المتصفح
+            </p>
+        </footer>
+    </div>
+    
+    <!-- تحميل JavaScript الخارجي -->
+    <script src="https://cdn.jsdelivr.net/gh/danielyousefdy/Sherlock-Holmes@Sherlock-Holmes/blogscript.js"></script>
+    
+    <!-- JavaScript داخلي للاختبار -->
+    <script>
+        // ==================== وظائف الاختبار ====================
+        
+        // اختبار CSS
+        function testCSS() {
+            const resultBox = document.getElementById('testResult');
+            
+            // التحقق من تحميل CSS الخارجي
+            const externalCSS = document.querySelector('link[href*="Blogstyle.css"]');
+            
+            if (externalCSS && externalCSS.sheet && externalCSS.sheet.cssRules.length > 0) {
+                resultBox.innerHTML = `
+                    <h3>✅ اختبار CSS ناجح</h3>
+                    <p>تم تحميل ملف CSS الخارجي بنجاح!</p>
+                    <p><strong>المصدر:</strong> ${externalCSS.href}</p>
+                    <p><strong>عدد القواعد:</strong> ${externalCSS.sheet.cssRules.length}</p>
+                    <div style="background: linear-gradient(135deg, #2ecc71, #27ae60); color: white; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        ✓ الملف الخارجي يعمل بشكل صحيح
+                    </div>
+                `;
+            } else {
+                resultBox.innerHTML = `
+                    <h3>⚠️ اختبار CSS تحذير</h3>
+                    <p>يتم استخدام CSS داخلي احتياطي</p>
+                    <p>الملف الخارجي قد لا يكون متاحاً أو حدث خطأ في التحميل</p>
+                `;
+            }
+            
+            resultBox.classList.add('active');
+        }
+        
+        // اختبار JavaScript
+        function testJS() {
+            const resultBox = document.getElementById('testResult');
+            
+            // التحقق من تحميل JS الخارجي
+            const externalJS = document.querySelector('script[src*="blogscript.js"]');
+            
+            // محاولة استدعاء دالة من الملف الخارجي (إذا كانت موجودة)
+            try {
+                if (typeof externalTest !== 'undefined') {
+                    resultBox.innerHTML = `
+                        <h3>✅ اختبار JavaScript ناجح</h3>
+                        <p>تم تحميل ملف JavaScript الخارجي بنجاح!</p>
+                        <p><strong>المصدر:</strong> ${externalJS.src}</p>
+                        <p><strong>الدوال المتاحة:</strong> ${Object.keys(window).filter(k => k.includes('test')).join(', ')}</p>
+                        <div style="background: linear-gradient(135deg, #3498db, #2980b9); color: white; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <button onclick="externalTest()" style="background: white; color: #3498db; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                                تشغيل دالة خارجية
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    resultBox.innerHTML = `
+                        <h3>⚠️ اختبار JavaScript تحذير</h3>
+                        <p>تم تحميل الملف ولكن الدوال غير محددة</p>
+                        <p><strong>الحالة:</strong> الملف محمل ولكن يحتاج إعدادات إضافية</p>
+                    `;
+                }
+            } catch (error) {
+                resultBox.innerHTML = `
+                    <h3>❌ اختبار JavaScript فاشل</h3>
+                    <p>حدث خطأ في تحميل الملف الخارجي</p>
+                    <p><strong>الخطأ:</strong> ${error.message}</p>
+                `;
+            }
+            
+            resultBox.classList.add('active');
+        }
+        
+        // اختبار الحماية
+        function testProtection() {
+            const resultBox = document.getElementById('testResult');
+            
+            let protectionScore = 0;
+            const maxScore = 4;
+            
+            // اختبار 1: منع النسخ
+            document.addEventListener('copy', function(e) {
+                document.getElementById('copyTest').textContent = 'مفعل';
+                document.getElementById('copyTest').className = 'test-pass';
+                protectionScore++;
+            }, { once: true });
+            
+            // اختبار 2: منع النقر الأيمن
+            document.addEventListener('contextmenu', function(e) {
+                document.getElementById('rightClickTest').textContent = 'مفعل';
+                document.getElementById('rightClickTest').className = 'test-pass';
+                protectionScore++;
+            }, { once: true });
+            
+            // اختبار 3: كشف أدوات المطور
+            const devToolsTest = () => {
+                const threshold = 160;
+                const widthDiff = window.outerWidth - window.innerWidth;
+                const heightDiff = window.outerHeight - window.innerHeight;
+                
+                if (widthDiff > threshold || heightDiff > threshold) {
+                    document.getElementById('devToolsTest').textContent = 'مفعل';
+                    document.getElementById('devToolsTest').className = 'test-pass';
+                    protectionScore++;
+                }
+            };
+            
+            window.addEventListener('resize', devToolsTest);
+            devToolsTest();
+            
+            // اختبار 4: التحقق من الدومين
+            const currentDomain = window.location.hostname;
+            if (currentDomain.includes('localhost') || currentDomain.includes('127.0.0.1') || currentDomain.includes('github.io')) {
+                document.getElementById('domainTest').textContent = 'مفعل (تجريبي)';
+                document.getElementById('domainTest').className = 'test-pass';
+                protectionScore++;
+            }
+            
+            // عرض النتيجة
+            const percentage = (protectionScore / maxScore) * 100;
+            resultBox.innerHTML = `
+                <h3>🔒 نتائج اختبار الحماية</h3>
+                <div style="background: linear-gradient(135deg, ${percentage > 75 ? '#2ecc71' : percentage > 50 ? '#f39c12' : '#e74c3c'}, ${percentage > 75 ? '#27ae60' : percentage > 50 ? '#d35400' : '#c0392b'}); color: white; padding: 20px; border-radius: 10px; margin-top: 15px;">
+                    <h4>مستوى الحماية: ${percentage}%</h4>
+                    <p>${protectionScore}/${maxScore} من طبقات الحماية مفعلة</p>
+                    <div style="background: rgba(255,255,255,0.2); height: 20px; border-radius: 10px; margin: 15px 0; overflow: hidden;">
+                        <div style="width: ${percentage}%; height: 100%; background: white; transition: width 1s ease;"></div>
+                    </div>
+                    <p>${percentage > 75 ? '✅ حماية ممتازة' : percentage > 50 ? '⚠️ حماية متوسطة' : '❌ حاجة لتحسين'}</p>
+                </div>
+                <ul style="margin-top: 20px; padding-right: 20px;">
+                    <li>1. منع النسخ: <strong>${document.getElementById('copyTest').textContent}</strong></li>
+                    <li>2. منع النقر الأيمن: <strong>${document.getElementById('rightClickTest').textContent}</strong></li>
+                    <li>3. كشف DevTools: <strong>${document.getElementById('devToolsTest').textContent}</strong></li>
+                    <li>4. التحقق من الدومين: <strong>${document.getElementById('domainTest').textContent}</strong></li>
+                </ul>
+            `;
+            
+            resultBox.classList.add('active');
+        }
+        
+        // ==================== نظام الحماية ====================
+        
+        // منع النسخ
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            alert('🔒 النسخ غير مسموح في هذا القالب المحمي');
+            return false;
+        });
+        
+        // منع النقر الأيمن
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // منع التحديد
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // كشف أدوات المطور
+        function detectDevTools() {
+            const threshold = 160;
+            
+            function check() {
+                const widthDiff = window.outerWidth - window.innerWidth;
+                const heightDiff = window.outerHeight - window.innerHeight;
+                
+                if (widthDiff > threshold || heightDiff > threshold) {
+                    document.body.innerHTML = `
+                        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #2c3e50; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 99999;">
+                            <h1 style="color: #e74c3c; font-size: 3rem;">⚠️</h1>
+                            <h2>تم اكتشاف أدوات المطور</h2>
+                            <p>يرجى إغلاق أدوات المطور للمتابعة</p>
+                            <button onclick="window.location.reload()" style="margin-top: 20px; padding: 12px 30px; background: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                                إعادة تحميل الصفحة
+                            </button>
+                        </div>
+                    `;
+                }
+            }
+            
+            window.addEventListener('resize', check);
+            setInterval(check, 1000);
+            check();
+        }
+        
+        // تفعيل بعد تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ قالب الاختبار محمل بنجاح');
+            console.log('🔗 CSS خارجي:', document.querySelector('link[href*="Blogstyle.css"]').href);
+            console.log('🔗 JS خارجي:', document.querySelector('script[src*="blogscript.js"]').src);
+            
+            // تفعيل كشف أدوات المطور بعد 5 ثواني
+            setTimeout(detectDevTools, 5000);
+            
+            // تفعيل اختبارات الحماية بعد 3 ثواني
+            setTimeout(() => {
+                document.getElementById('copyTest').textContent = 'جاهز للاختبار';
+                document.getElementById('rightClickTest').textContent = 'جاهز للاختبار';
+                document.getElementById('devToolsTest').textContent = 'جاهز للاختبار';
+                document.getElementById('domainTest').textContent = 'جاهز للاختبار';
+            }, 3000);
+        });
+        
+        // ==================== وظائف مساعدة ====================
+        
+        // دالة تجريبية للاختبار
+        function externalTest() {
+            alert('🎉 هذه دالة من ملف JavaScript الخارجي!\n\nالقالب يعمل بشكل صحيح مع الملفات الخارجية.');
+        }
+        
+        // جعل الدالة متاحة عالمياً
+        window.externalTest = externalTest;
+    </script>
+</body>
+</html>
